@@ -8,6 +8,16 @@ import io from 'socket.io-client';
 import DnlkkInput from "@/shared/components/DnlkkInput/DnlkkInput";
 
 import styles from './Chat.module.scss';
+import {useAppSelector} from "@/shared/hooks/rtk";
+import {selectFromId, selectToId} from "@/entity/Dialog/store/dialogSlice";
+
+export type Message = {
+    toId: string;
+    fromId: string;
+    text: string;
+    sendAt: Date;
+    watched: boolean;
+};
 
 const socket = io('http://localhost:5000');
 
@@ -21,43 +31,54 @@ const socket = io('http://localhost:5000');
 // TODO: next-auth
 // TODO: think about `const message = e.target[0].value;`
 const Chat = ({sx, className, ...props}: BoxProps) => {
-    const [room] = useState(1);
-    const [messages, setMessages] = useState<string[]>([]);
+    const fromId = useAppSelector(selectFromId);
+    const toId = useAppSelector(selectToId);
+    const [messages, setMessages] = useState<Message[]>([]);
     const div = useRef<HTMLUListElement>(null);
 
-    useEffect(()=> {
+    useEffect(() => {
         console.log(div);
         if (div.current) {
-            div.current.scrollIntoView({behavior: "smooth", block:"center"});
+            div.current.scrollIntoView({behavior: "smooth", block: "center"});
         }
-    },[messages]);
+    }, [messages]);
 
     useEffect(() => {
-        socket.emit('join', { name: 'Anton', room });
-        socket.on('messages', ({ data }) => {
+        if (!toId) {
+            setMessages([]);
+            return () => { };
+        }
+        socket.emit('join', {toId, fromId});
+        socket.on('messages', ({data}) => {
             setMessages(data.messages);
         });
-
         return () => {
-            socket.disconnect();
+            console.log(`Размонтирован! ${toId + " - " + fromId}`)
+            socket.emit('leave', {toId, fromId});
         }
-    }, [room]);
+    }, [toId, fromId]);
 
     useEffect(() => {
-        socket.on('message', ({ data }) => {
+        socket.on('message', ({data}) => {
             setMessages((prev) => [...prev, data.message]);
         });
+        return () => {
+            socket.close();
+        }
     }, []);
 
     const handleSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        if (!toId) {
+            return;
+        }
         // @ts-expect-error
-        const message = e.target[0].value;
-        console.log(message);
-        socket.emit('sendMessage', { message, room });
+        const text = e.target[0].value;
+        console.log(text);
+        socket.emit('sendMessage', {text, toId, fromId});
         // @ts-expect-error
         e.target[0].value = "";
-    }, []);
+    }, [toId, fromId]);
 
     return (
         <Box
@@ -74,24 +95,32 @@ const Chat = ({sx, className, ...props}: BoxProps) => {
             }}
         >
             <div>
-                <h1>Chattin'!</h1>
+                <h1>Chattin'!!</h1>
             </div>
             <div className={styles.body}>
                 <ul className={styles.messages} ref={div}>
                     {messages.map((message, index) => (
-                        <li key={index}>
-                            {message}
+                        <li
+                            key={index}
+                            style={{
+                                background: message.fromId === fromId ? "red" : "green",
+                                border: "2px solid black",
+                                padding: 8,
+                                borderRadius: 4
+                            }}
+                        >
+                            {message.fromId}
+                            {message.text}
                         </li>
                     ))}
                 </ul>
             </div>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className={styles.chatBarWrapper}>
                 <DnlkkInput
                     onSubmit={(e) => console.log(e.currentTarget.nodeValue)}
                     className={styles.chatBar}
                     placeholder="Напишите сообщение..."
                 />
-
             </form>
         </Box>
     );

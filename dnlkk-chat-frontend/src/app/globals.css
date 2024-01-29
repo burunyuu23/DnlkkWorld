@@ -14,5 +14,5 @@ main{
 main {
 	flex-grow: 1;
 
-	padding: calc(48px + 12px) 92px 12px;
+	padding: calc(48px + 12px) 0 12px;
 }

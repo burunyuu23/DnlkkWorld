@@ -1,10 +1,12 @@
-import { configureStore } from '@reduxjs/toolkit'
+import {configureStore} from '@reduxjs/toolkit'
 import {themeSlice} from "@/feature/ToggleTheme";
+import {dialogSlice} from "@/entity/Dialog/store/dialogSlice";
 
 export const makeStore = () => {
     return configureStore({
         reducer: {
             [themeSlice.name]: themeSlice.reducer,
+            [dialogSlice.name]: dialogSlice.reducer,
         },
     })
 }

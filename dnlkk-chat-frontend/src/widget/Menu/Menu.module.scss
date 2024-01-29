@@ -1,0 +1,14 @@
+.menu {
+  list-style-type: none;
+  padding: 0 8px+5px;
+  gap: 4px;
+
+  & li {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    & svg {
+      font-size: 16px;
+    }
+  }
+}

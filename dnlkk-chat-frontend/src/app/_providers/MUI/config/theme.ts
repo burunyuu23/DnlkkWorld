@@ -24,10 +24,10 @@ const lightPalette: PaletteOptions = {
     },
     background: {
         paper: '#BAE7B7',
-        default: '#E8F0E7',
+        default: '#d9e8d8',
     },
     primary: {
-        main: '#71EB71',
+        main: '#39a439',
     },
     secondary: {
         main: '#222A22',
@@ -39,6 +39,18 @@ const theme: ThemeOptions = {
     typography: {
         fontFamily: 'Jost, Arial',
     },
+    components: {
+        MuiSvgIcon: {
+            styleOverrides: {
+                root: ({ theme }) => ({
+                    fill: theme.palette.primary.main
+                }),
+                colorDisabled: ({ theme }) => ({
+                    fill: theme.palette.secondary.main
+                }),
+            }
+        }
+    }
 };
 
 const getDesignTokens = (mode: PaletteMode) => ({

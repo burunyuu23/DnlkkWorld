@@ -2,6 +2,7 @@ import React from 'react';
 import {Box} from "@mui/material";
 
 import {MainLogo} from "@/feature/Logo";
+import {ToggleThemeSwitcher} from "@/feature/ToggleTheme";
 
 import styles from './Header.module.scss';
 
@@ -14,6 +15,19 @@ const Header = ({}: HeaderProps) => {
         >
             <header className={styles.header}>
                 <MainLogo/>
+                {/*TODO: UserIcon*/}
+                <Box sx={{
+                    display: 'flex',
+                    alignItems: 'center'
+                }}>
+                    <ToggleThemeSwitcher />
+                    <Box sx={{
+                        bgcolor: 'gray',
+                        width: 26,
+                        height: 26,
+                        borderRadius: 13
+                    }}/>
+                </Box>
             </header>
         </Box>
     );
