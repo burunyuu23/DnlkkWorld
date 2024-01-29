@@ -16,7 +16,7 @@ export default function Provider({ children }: ProviderProps) {
     const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
 
     return (
-        <AppRouterCacheProvider>
+        <AppRouterCacheProvider options={{ enableCssLayer: true }}>
                 <ThemeProvider theme={theme}>
                     <CssBaseline />
                     {children}
