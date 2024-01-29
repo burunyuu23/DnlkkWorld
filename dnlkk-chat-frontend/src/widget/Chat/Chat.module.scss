@@ -11,11 +11,15 @@
 }
 
 .messages {
+  list-style-type: none;
   width: 100%;
   max-height: 100%;
+  padding: 0 10px;
   overflow: auto;
   position: absolute;
   bottom: 0;
+  display: grid;
+  gap: 8px;
 }
 .chatBarWrapper {
   padding: 0 10px;

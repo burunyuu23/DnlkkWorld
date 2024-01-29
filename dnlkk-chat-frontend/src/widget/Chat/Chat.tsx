@@ -6,18 +6,12 @@ import cl from 'classnames';
 import io from 'socket.io-client';
 
 import DnlkkInput from "@/shared/components/DnlkkInput/DnlkkInput";
-
-import styles from './Chat.module.scss';
 import {useAppSelector} from "@/shared/hooks/rtk";
 import {selectFromId, selectToId} from "@/entity/Dialog/store/dialogSlice";
+import {Message} from "@/entity/Message";
 
-export type Message = {
-    toId: string;
-    fromId: string;
-    text: string;
-    sendAt: Date;
-    watched: boolean;
-};
+import styles from './Chat.module.scss';
+import ChatMessage from "../../entity/Message/ui/ChatMessage/ChatMessage";
 
 const socket = io('http://localhost:5000');
 
@@ -46,7 +40,8 @@ const Chat = ({sx, className, ...props}: BoxProps) => {
     useEffect(() => {
         if (!toId) {
             setMessages([]);
-            return () => { };
+            return () => {
+            };
         }
         socket.emit('join', {toId, fromId});
         socket.on('messages', ({data}) => {
@@ -100,17 +95,8 @@ const Chat = ({sx, className, ...props}: BoxProps) => {
             <div className={styles.body}>
                 <ul className={styles.messages} ref={div}>
                     {messages.map((message, index) => (
-                        <li
-                            key={index}
-                            style={{
-                                background: message.fromId === fromId ? "red" : "green",
-                                border: "2px solid black",
-                                padding: 8,
-                                borderRadius: 4
-                            }}
-                        >
-                            {message.fromId}
-                            {message.text}
+                        <li key={index}>
+                            <ChatMessage {...message} isMyMessage={fromId === message.fromId}/>
                         </li>
                     ))}
                 </ul>
