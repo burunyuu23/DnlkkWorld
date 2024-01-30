@@ -6,4 +6,5 @@ export type Room = {
     name?: string;
     participants: User[];
     lastMessage: Message;
+    notWatchedMessageCount: number;
 };

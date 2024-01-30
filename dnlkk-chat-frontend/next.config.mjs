@@ -1,6 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     reactStrictMode: false,
+    publicRuntimeConfig: {
+        NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
+        NEXT_MESSAGE_API_URL: process.env.NEXT_MESSAGE_API_URL,
+    },
     images: {
         remotePatterns: [
             {

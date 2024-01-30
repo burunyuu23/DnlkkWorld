@@ -5,6 +5,10 @@ import {getUsersByIds} from "../data/users";
 
 const router = Router();
 
+router.get("/", (req, res) => {
+    res.setHeader('Content-Type', 'application/json; charset=utf-8');
+    res.send({ ok: 'ok' });
+})
 router.get("/dialogs/:id", (req, res) => {
     res.setHeader('Content-Type', 'application/json; charset=utf-8');
     res.send(getLast50RoomsByUser(req.params.id));

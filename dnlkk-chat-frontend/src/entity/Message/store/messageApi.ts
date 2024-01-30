@@ -1,6 +1,6 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 
-import {closeSocket, getSocket} from "@/shared/api/socket";
+import {getSocket} from "@/shared/api/socket";
 
 import {Message} from '../model/type';
 
@@ -22,11 +22,15 @@ const messageApi = createApi({
                 {updateCachedData, cacheDataLoaded, cacheEntryRemoved}
             ) {
                 const socket = getSocket(baseUrl);
-                socket.emit('join', roomId);
                 try {
                     await cacheDataLoaded;
 
                     const receiveMessage = ({message}: { message: Message }) => {
+                        if (message.toId === roomId.fromId) {
+                            console.log(message)
+                            console.log(roomId)
+                            socket.emit('watched', { ...roomId, messageId: message.id });
+                        }
                         updateCachedData((draft) => {
                             draft.push(message)
                         })
@@ -34,13 +38,9 @@ const messageApi = createApi({
 
                     socket.on('message', receiveMessage);
                 } catch {
-                    // no-op in case `cacheEntryRemoved` resolves before `cacheDataLoaded`,
-                    // in which case `cacheDataLoaded` will throw
                 }
-                // cacheEntryRemoved will resolve when the cache subscription is no longer active
                 await cacheEntryRemoved
-                // perform cleanup steps once the `cacheEntryRemoved` promise resolves
-                closeSocket(baseUrl, socket);
+                socket.emit('leave', roomId);
             },
         }),
         sendMessage: build.mutation<Message, Pick<Message, 'text' | 'toId' | 'fromId'>>({
@@ -56,6 +56,9 @@ const messageApi = createApi({
     }),
 })
 
-export const {useLazyGetMessagesQuery, useSendMessageMutation} = messageApi;
+export const {
+    useLazyGetMessagesQuery,
+    useSendMessageMutation,
+} = messageApi;
 
 export default messageApi;

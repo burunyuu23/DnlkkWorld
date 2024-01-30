@@ -12,6 +12,7 @@ export type RoomDto = {
     name?: string;
     participants: User[];
     lastMessage: Message;
+    notWatchedMessageCount: number;
 }
 
 const rooms: Map<Room['id'], Room> = new Map([
@@ -27,11 +28,7 @@ export const getLast50RoomsByUser = (userId: User['id']) => {
         }
         const room = roomEntry[1];
         if (room.participants.includes(userId)) {
-            userRooms.push({
-                ...room,
-                participants: getUsersByIds(room.participants),
-                lastMessage: room.messages.at(-1)
-            });
+            userRooms.push(roomToDto(room));
         }
     }
     return userRooms;
@@ -40,3 +37,10 @@ export const getLast50RoomsByUser = (userId: User['id']) => {
 export const getRoomById = (id: Room['id']) => rooms.get(id);
 
 export const addRoom = (id: Room['id'], room: Room) => rooms.set(id, room);
+
+export const roomToDto = (room: Room) => ({
+    ...room,
+    participants: getUsersByIds(room.participants),
+    lastMessage: room.messages.at(-1),
+    notWatchedMessageCount: room.messages.filter((message) => !message.watched).length,
+})

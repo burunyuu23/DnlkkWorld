@@ -24,7 +24,6 @@ import ChatMessage from "../../entity/Message/ui/ChatMessage/ChatMessage";
 const Chat = ({sx, className, ...props}: BoxProps) => {
     const fromId = useAppSelector(selectFromId);
     const toId = useAppSelector(selectToId);
-    console.log(toId, " ", fromId)
     const bottom = useRef<HTMLBRElement>(null);
     const [sendMessage] = useSendMessageMutation();
     const [getCatalogProducts, {data: messages}] = useLazyGetMessagesQuery();

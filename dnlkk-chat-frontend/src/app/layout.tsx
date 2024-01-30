@@ -6,6 +6,7 @@ import Header from "@/widget/Header/Header";
 
 import {StoreProvider, ThemeProvider} from "./_providers";
 import "./globals.css";
+import {SocketProvider} from "@/app/_providers/Sockets";
 
 const inter = Inter({subsets: ["latin"]});
 
@@ -20,14 +21,16 @@ type LayoutProps = Readonly<{ children: ReactNode }>;
 export default function RootLayout({children}: LayoutProps) {
     return (
         <html lang="ru">
-            <body className={inter.className}>
-                <StoreProvider>
-                    <ThemeProvider>
-                        <Header />
-                        {children}
-                    </ThemeProvider>
-                </StoreProvider>
-            </body>
+        <body className={inter.className}>
+        <StoreProvider>
+            <SocketProvider>
+                <ThemeProvider>
+                    <Header/>
+                    {children}
+                </ThemeProvider>
+            </SocketProvider>
+        </StoreProvider>
+        </body>
         </html>
     );
 }

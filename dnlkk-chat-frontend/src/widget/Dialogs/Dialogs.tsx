@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Box, BoxProps, Button, InputAdornment, SvgIcon} from "@mui/material";
 
 import {SearchIcon} from "@/shared/icons";
@@ -8,18 +8,54 @@ import DnlkkInput from "@/shared/components/DnlkkInput/DnlkkInput";
 import {useAppDispatch, useAppSelector} from "@/shared/hooks/rtk";
 import {chooseDialog, chooseUser, selectFromId, selectToId} from "@/entity/Dialog/store/dialogSlice";
 import UserMiniCardDialog from "@/widget/UserMiniCardDialog/UserMiniCardDialog";
-import {useGetDialogsQuery, useGetUsersQuery} from "@/entity/Dialog/store/dialogApi";
+import {
+    useGetDialogsQuery,
+    useGetUsersQuery,
+    useJoinDialogMutation,
+    useLeaveDialogMutation,
+    useLoginMutation,
+    useLogoutMutation
+} from "@/entity/Dialog/store/dialogApi";
 
 import styles from './Dialogs.module.scss';
+import {User} from "@/entity/User/model/type";
 
 type DialogsProps = BoxProps;
 
 const Dialogs = ({ sx, ...props }: DialogsProps) => {
+    const [logged, setLogged] = useState(false);
     const fromId = useAppSelector(selectFromId);
     const toId = useAppSelector(selectToId);
     const dispatch = useAppDispatch();
     const { data: rooms } = useGetDialogsQuery(fromId);
     const { data: users } = useGetUsersQuery();
+    const [leave] = useLeaveDialogMutation();
+    const [join] = useJoinDialogMutation();
+    const [login] = useLoginMutation();
+    const [logout] = useLogoutMutation();
+
+    const handleChooseUser = (userId: User['id']) => {
+        if (logged && userId !== fromId) {
+            logout();
+            setLogged(false);
+        }
+        dispatch(chooseUser(userId));
+        if (!logged) {
+            setLogged(true);
+        }
+        login(userId);
+    }
+
+    useEffect(() => {
+        if (toId) {
+            join({fromId, toId});
+        }
+        return () => {
+            if (toId) {
+                leave({fromId, toId});
+            }
+        };
+    }, [fromId, toId]);
 
     return (
         <Box
@@ -52,7 +88,7 @@ const Dialogs = ({ sx, ...props }: DialogsProps) => {
                             <Button
                                 sx={{ padding: '2px' }}
                                 key={user.id}
-                                onClick={() => dispatch(chooseUser(user.id))}
+                                onClick={() => handleChooseUser(user.id)}
                                 variant={fromId === user.id ? "contained" : "outlined"}
                             >
                                 <UserMiniCardDialog
@@ -73,7 +109,7 @@ const Dialogs = ({ sx, ...props }: DialogsProps) => {
                 >
                     esc
                 </Button>
-                {rooms?.map(({id, participants, lastMessage}) => {
+                {rooms?.map(({id, participants, lastMessage, notWatchedMessageCount}) => {
                         const users = id !== `${fromId}_${fromId}` ?
                             participants.filter((part) => part.id !== fromId)
                             :
@@ -92,6 +128,7 @@ const Dialogs = ({ sx, ...props }: DialogsProps) => {
                                                 fromId={fromId}
                                                 {...user}
                                                 message={lastMessage}
+                                                notWatchedMessageCount={notWatchedMessageCount}
                                             />
                                         </Button>
                                     )

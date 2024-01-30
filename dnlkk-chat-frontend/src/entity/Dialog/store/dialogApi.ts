@@ -1,4 +1,4 @@
-import {closeSocket, getSocket} from "@/shared/api/socket";
+import {getSocket} from "@/shared/api/socket";
 import {Message} from "@/entity/Message";
 import messageApi from "@/entity/Message/store/messageApi";
 
@@ -25,30 +25,68 @@ const dialogApi = messageApi.injectEndpoints({
                 {updateCachedData, cacheDataLoaded, cacheEntryRemoved}
             ) {
                 const socket = getSocket(baseUrl);
-                socket.emit('getDialogs', { id: fromId });
-                console.log("We are here!")
                 try {
                     await cacheDataLoaded;
-                    console.log("We are here!")
 
-                    socket.on('message', ({ message, roomId }) => {
+                    const receiveMessage = ({message}: { message: Message }) => {
                         updateCachedData((draft) => {
-                            const draftedRoom = draft.find((room) => room.id === roomId);
-                            if (draftedRoom) draftedRoom.lastMessage = message;
+                            const draftedRoom = draft.find(
+                                (draftedRoom) => draftedRoom.id === message.roomId
+                            );
+                            if (draftedRoom) {
+                                draftedRoom.lastMessage = message;
+                                if (!message.watched && message.toId === fromId) {
+                                    draftedRoom.notWatchedMessageCount++;
+                                }
+                            }
                         });
-                    });
+                    }
+
+                    socket.on('message', receiveMessage);
                 } catch {
-                    console.log("We are here!")
                 }
                 await cacheEntryRemoved
-                console.log("We are here!")
-                closeSocket(baseUrl, socket);
+            },
+        }),
+        leaveDialog: build.mutation<void, Pick<Message, 'toId' | 'fromId'>>({
+            query: (roomId) => {
+                const socket = getSocket(baseUrl);
+                socket.emit('leave', roomId);
+                return '/';
+            },
+        }),
+        joinDialog: build.mutation<void, Pick<Message, 'toId' | 'fromId'>>({
+            query: (roomId) => {
+                const socket = getSocket(baseUrl);
+                socket.emit('join', roomId);
+                return '/';
+            },
+        }),
+        login: build.mutation<void, Message['fromId']>({
+            query: (fromId) => {
+                const socket = getSocket(baseUrl);
+                socket.emit('login', fromId);
+                return '/';
+            },
+        }),
+        logout: build.mutation<void, void>({
+            query: () => {
+                const socket = getSocket(baseUrl);
+                socket.close();
+                return '/';
             },
         }),
     }),
     overrideExisting: false,
 })
 
-export const { useGetUsersQuery, useGetDialogsQuery } = dialogApi;
+export const {
+    useGetUsersQuery,
+    useGetDialogsQuery,
+    useLoginMutation,
+    useLeaveDialogMutation,
+    useJoinDialogMutation,
+    useLogoutMutation,
+} = dialogApi;
 
 export default dialogApi;

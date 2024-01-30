@@ -7,11 +7,11 @@ import {Typography} from "@mui/material";
 
 type UserMiniCardDialogProps = User & {
     message?: Message;
+    notWatchedMessageCount?: number;
     fromId: string;
 };
 
-const UserMiniCardDialog = ({fromId, message, ...user}: UserMiniCardDialogProps) => {
-    console.log(message, " ", user)
+const UserMiniCardDialog = ({fromId, notWatchedMessageCount, message, ...user}: UserMiniCardDialogProps) => {
     return (
         <UserMiniCardBase
             {...user}
@@ -39,10 +39,27 @@ const UserMiniCardDialog = ({fromId, message, ...user}: UserMiniCardDialogProps)
                 <>
                     {
                         message &&
-                        <Typography sx={{color: 'text.secondary'}}>
-                            {/* TODO: также с датами как и в сообщении */}
-                            <time>1ч</time>
-                        </Typography>
+                        (
+                            <>
+                                <Typography variant="caption" sx={{color: 'text.secondary'}}>
+                                    {/* TODO: также с датами как и в сообщении */}
+                                    <time>1ч</time>
+                                </Typography>
+                                {message.fromId !== fromId && !!notWatchedMessageCount && (
+                                    <Typography
+                                        variant="caption"
+                                        sx={{
+                                            border: '2px solid green',
+                                            width: '20px',
+                                            height: '20px',
+                                            borderRadius: '50%',
+                                        }}
+                                    >
+                                        {notWatchedMessageCount}
+                                    </Typography>
+                                )}
+                            </>
+                        )
                     }
                 </>
             }
