@@ -7,13 +7,20 @@ import {SearchIcon} from "@/shared/icons";
 import DnlkkInput from "@/shared/components/DnlkkInput/DnlkkInput";
 import {useAppDispatch, useAppSelector} from "@/shared/hooks/rtk";
 import {chooseDialog, chooseUser, selectFromId, selectToId} from "@/entity/Dialog/store/dialogSlice";
+import UserMiniCardDialog from "@/widget/UserMiniCardDialog/UserMiniCardDialog";
+import {useGetDialogsQuery, useGetUsersQuery} from "@/entity/Dialog/store/dialogApi";
 
 import styles from './Dialogs.module.scss';
 
-const Dialogs = ({sx, ...props}: BoxProps) => {
+type DialogsProps = BoxProps;
+
+const Dialogs = ({ sx, ...props }: DialogsProps) => {
     const fromId = useAppSelector(selectFromId);
     const toId = useAppSelector(selectToId);
     const dispatch = useAppDispatch();
+    const { data: rooms } = useGetDialogsQuery(fromId);
+    const { data: users } = useGetUsersQuery();
+
     return (
         <Box
             {...props}
@@ -39,43 +46,66 @@ const Dialogs = ({sx, ...props}: BoxProps) => {
                     ),
                 }}
             />
-            <ul>
-                <Button
-                    onClick={() => dispatch(chooseUser("1"))}
-                    variant={fromId === "1" ? "contained" : "outlined"}
-                >
-                    1
-                </Button>
-                <Button
-                    onClick={() => dispatch(chooseUser("2"))}
-                    variant={fromId === "2" ? "contained" : "outlined"}
-                >
-                    2
-                </Button>
+            <ul className={styles.dialogs}>
+                {users?.map((user) => {
+                        return (
+                            <Button
+                                sx={{ padding: '2px' }}
+                                key={user.id}
+                                onClick={() => dispatch(chooseUser(user.id))}
+                                variant={fromId === user.id ? "contained" : "outlined"}
+                            >
+                                <UserMiniCardDialog
+                                    fromId={fromId}
+                                    {...user}
+                                />
+                            </Button>
+                        )
+                    }
+                )}
             </ul>
             <hr/>
-            <ul>
+            <ul className={styles.dialogs}>
                 <Button
+                    sx={{ padding: '2px' }}
                     onClick={() => dispatch(chooseDialog(undefined))}
                     variant={toId === undefined ? "contained" : "outlined"}
                 >
                     esc
                 </Button>
-                <Button
-                    onClick={() => dispatch(chooseDialog("1"))}
-                    variant={toId === "1" ? "contained" : "outlined"}
-                >
-                    1
-                </Button>
-                <Button
-                    onClick={() => dispatch(chooseDialog("2"))}
-                    variant={toId === "2" ? "contained" : "outlined"}
-                >
-                    2
-                </Button>
+                {rooms?.map(({id, participants, lastMessage}) => {
+                        const users = id !== `${fromId}_${fromId}` ?
+                            participants.filter((part) => part.id !== fromId)
+                            :
+                            participants;
+                        return (
+                            <>
+                                {users.map((user) => {
+                                    return (
+                                        <Button
+                                            sx={{ padding: '2px' }}
+                                            key={`${id}_${user.id}`}
+                                            onClick={() => dispatch(chooseDialog(user.id))}
+                                            variant={toId === user.id ? "contained" : "outlined"}
+                                        >
+                                            <UserMiniCardDialog
+                                                fromId={fromId}
+                                                {...user}
+                                                message={lastMessage}
+                                            />
+                                        </Button>
+                                    )
+
+                                })
+                                }
+                            </>
+                        )
+                    }
+                )}
             </ul>
         </Box>
-    );
+    )
+        ;
 };
 
 export default Dialogs;

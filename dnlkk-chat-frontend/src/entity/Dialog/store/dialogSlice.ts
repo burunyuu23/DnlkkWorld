@@ -31,4 +31,4 @@ export const dialogSlice = createSlice({
 export const { chooseDialog, chooseUser } = dialogSlice.actions;
 export const { selectToId, selectFromId } = dialogSlice.selectors;
 
-export default dialogSlice.reducer
+export default dialogSlice.reducer;

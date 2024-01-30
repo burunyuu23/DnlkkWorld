@@ -1,0 +1,32 @@
+.miniCard {
+  height: 48px;
+  display: grid;
+  grid-template-columns: 40px auto max-content;
+  padding: 4px 7px;
+  width: 100%;
+}
+
+.bottomContent {
+  display: grid;
+  max-width: 100%;
+  padding: 0 7px;
+  justify-items: start;
+
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-align:left;
+
+  & > * {
+    width: 100%;
+    display: initial;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.rightContent {
+  display: grid;
+  justify-content: end;
+  gap: 8px;
+}

@@ -38,15 +38,23 @@ const lightPalette: PaletteOptions = {
 const theme: ThemeOptions = {
     typography: {
         fontFamily: 'Jost, Arial',
+        caption: {
+            fontSize: '0.75rem',
+            lineHeight: 1.167,
+        },
+        subtitle1: {
+            fontSize: '0.875rem',
+            lineHeight: 1.429,
+        },
     },
     components: {
         MuiSvgIcon: {
             styleOverrides: {
-                root: ({ theme }) => ({
-                    fill: theme.palette.primary.main
+                root: ({theme}) => ({
+                    color: theme.palette.primary.main
                 }),
-                colorDisabled: ({ theme }) => ({
-                    fill: theme.palette.secondary.main
+                colorDisabled: ({theme}) => ({
+                    color: theme.palette.text.secondary
                 }),
             }
         }

@@ -1,6 +1,5 @@
 import {User} from "./users";
-
-export const rooms: Map<string, Message[]> = new Map();
+import {addRoom, getRoomById, Room} from "./rooms";
 
 export type Message = {
     toId: User["id"];
@@ -16,15 +15,32 @@ export const getRoomIdByUsers = (toId: string, fromId: string) => {
     return `${minId}_${maxId}`;
 }
 
-export const addMessage = (toId: string, fromId: string, text: string) => {
+export const addMessage = (toId: string, fromId: string, text: string, isGroup?: boolean) => {
+    return isGroup ? addMessageToGroup(toId, fromId, text) : addMessageToUser(toId, fromId, text);
+};
+
+export const addMessageToUser = (toId: string, fromId: string, text: string) => {
     const roomId = getRoomIdByUsers(toId, fromId);
-    const room = rooms.get(roomId);
+    const room = getRoomById(roomId);
     const message: Message = { toId, fromId, text, sendAt: new Date(), watched: false };
     if (!room) {
-        rooms.set(roomId, [message]);
+        addRoom(roomId, {
+            id: roomId,
+            participants: [fromId, toId],
+            messages: [message]
+        });
     } else {
-        room.push(message);
+        room.messages.push(message);
     }
+    return message;
+};
+
+export const addMessageToGroup = (toId: string, fromId: string, text: string) => {
+    const room = getRoomById(toId);
+
+    const message: Message = { toId, fromId, text, sendAt: new Date(), watched: false };
+
+    room.messages.push(message);
     return message;
 };
 
@@ -36,13 +52,29 @@ export const watchMessage = (fromId: string, message: Message) => {
     return false;
 };
 
+export const getLast50MessagesFrom = (toId: string, fromId: string, isGroup?: boolean) => {
+    return isGroup ? getLast50MessagesFromGroup(toId, fromId) : getLast50MessagesFromUser(toId, fromId);
+};
 
-export const getLast50Messages = (toId: string, fromId: string) => {
-    const roomId = getRoomIdByUsers(toId, fromId);
-    const room = rooms.get(roomId);
+const getLast50MessagesFromGroup = (toId: string, fromId: string) => {
+    const room = getRoomById(toId);
     if (room) {
-        for (let index = room.length - 1; index >= 0 && watchMessage(fromId, room.at(index)); index--) {}
-        return room.slice(room.length - 50 - 1);
+        return getLast50Messages(room, fromId);
     }
     return [];
+};
+
+const getLast50MessagesFromUser = (toId: string, fromId: string) => {
+    const roomId = getRoomIdByUsers(toId, fromId);
+    const room = getRoomById(roomId);
+    if (room) {
+        return getLast50Messages(room, fromId);
+    }
+    return [];
+};
+
+const getLast50Messages = (room: Room, fromId: string) => {
+    const messages = room.messages;
+    for (let index = messages.length - 1; index >= 0 && watchMessage(fromId, messages.at(index)); index--) {}
+    return messages.slice(messages.length - 50 - 1);
 };

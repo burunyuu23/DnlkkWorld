@@ -1,19 +1,16 @@
 'use client';
 
-import React, {FormEvent, useCallback, useEffect, useRef, useState} from 'react';
+import React, {FormEvent, useCallback, useEffect, useRef} from 'react';
 import {Box, BoxProps} from "@mui/material";
 import cl from 'classnames';
-import io from 'socket.io-client';
 
 import DnlkkInput from "@/shared/components/DnlkkInput/DnlkkInput";
 import {useAppSelector} from "@/shared/hooks/rtk";
 import {selectFromId, selectToId} from "@/entity/Dialog/store/dialogSlice";
-import {Message} from "@/entity/Message";
+import {useLazyGetMessagesQuery, useSendMessageMutation} from "@/entity/Message/store/messageApi";
 
 import styles from './Chat.module.scss';
 import ChatMessage from "../../entity/Message/ui/ChatMessage/ChatMessage";
-
-const socket = io('http://localhost:5000');
 
 // TODO: socket to rtk
 // TODO: messages to rtk + feature/Messages
@@ -27,40 +24,22 @@ const socket = io('http://localhost:5000');
 const Chat = ({sx, className, ...props}: BoxProps) => {
     const fromId = useAppSelector(selectFromId);
     const toId = useAppSelector(selectToId);
-    const [messages, setMessages] = useState<Message[]>([]);
-    const div = useRef<HTMLUListElement>(null);
+    console.log(toId, " ", fromId)
+    const bottom = useRef<HTMLBRElement>(null);
+    const [sendMessage] = useSendMessageMutation();
+    const [getCatalogProducts, {data: messages}] = useLazyGetMessagesQuery();
 
     useEffect(() => {
-        console.log(div);
-        if (div.current) {
-            div.current.scrollIntoView({behavior: "smooth", block: "center"});
-        }
+        bottom.current?.scrollIntoView({behavior: "smooth"});
     }, [messages]);
 
     useEffect(() => {
         if (!toId) {
-            setMessages([]);
             return () => {
             };
         }
-        socket.emit('join', {toId, fromId});
-        socket.on('messages', ({data}) => {
-            setMessages(data.messages);
-        });
-        return () => {
-            console.log(`Размонтирован! ${toId + " - " + fromId}`)
-            socket.emit('leave', {toId, fromId});
-        }
+        getCatalogProducts({fromId, toId});
     }, [toId, fromId]);
-
-    useEffect(() => {
-        socket.on('message', ({data}) => {
-            setMessages((prev) => [...prev, data.message]);
-        });
-        return () => {
-            socket.close();
-        }
-    }, []);
 
     const handleSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -70,7 +49,7 @@ const Chat = ({sx, className, ...props}: BoxProps) => {
         // @ts-expect-error
         const text = e.target[0].value;
         console.log(text);
-        socket.emit('sendMessage', {text, toId, fromId});
+        sendMessage({text, toId, fromId});
         // @ts-expect-error
         e.target[0].value = "";
     }, [toId, fromId]);
@@ -89,25 +68,36 @@ const Chat = ({sx, className, ...props}: BoxProps) => {
                 ...sx,
             }}
         >
-            <div>
-                <h1>Chattin'!!</h1>
-            </div>
-            <div className={styles.body}>
-                <ul className={styles.messages} ref={div}>
-                    {messages.map((message, index) => (
-                        <li key={index}>
-                            <ChatMessage {...message} isMyMessage={fromId === message.fromId}/>
-                        </li>
-                    ))}
-                </ul>
-            </div>
-            <form onSubmit={handleSubmit} className={styles.chatBarWrapper}>
-                <DnlkkInput
-                    onSubmit={(e) => console.log(e.currentTarget.nodeValue)}
-                    className={styles.chatBar}
-                    placeholder="Напишите сообщение..."
-                />
-            </form>
+            {toId &&
+                (
+                    <>
+                        <div>
+                            <h1>Chattin'!!</h1>
+                        </div>
+                        <div className={styles.body}>
+                            <ul className={styles.messages}>
+                                {messages?.map((message, index) => (
+                                    <li key={index}>
+                                        <ChatMessage {...message} isMyMessage={fromId === message.fromId}/>
+                                    </li>
+                                ))}
+                            </ul>
+                            <br ref={bottom}/>
+                        </div>
+                        <form onSubmit={handleSubmit} className={styles.chatBarWrapper}>
+                            <DnlkkInput
+                                onSubmit={(e) => console.log(e.currentTarget.nodeValue)}
+                                className={styles.chatBar}
+                                placeholder="Напишите сообщение..."
+                            />
+                        </form>
+                    </>
+                ) || (
+                    <div>
+                        Выберите диалог
+                    </div>
+                )
+            }
         </Box>
     );
 };
