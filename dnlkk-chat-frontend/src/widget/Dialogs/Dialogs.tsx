@@ -1,6 +1,6 @@
 'use client';
 
-import React, {Fragment, useState} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import {Box, BoxProps, Button, InputAdornment, SvgIcon} from "@mui/material";
 import {useRouter} from 'next/navigation';
 
@@ -18,9 +18,9 @@ import {
     useLogoutMutation
 } from "@/entity/Dialog/store/dialogApi";
 import {User} from "@/entity/User/model/type";
-import {Room} from "@/entity/Dialog/model/types";
 
 import styles from './Dialogs.module.scss';
+import {getRoomIdByUsers} from "@/entity/Dialog/model/getRoomIdByUsers";
 
 type DialogsProps = BoxProps;
 
@@ -49,15 +49,20 @@ const Dialogs = ({sx, ...props}: DialogsProps) => {
         login(userId);
     }
 
-    const handleChooseRoom = (roomId: Room['id'], id: User['id']) => {
-        console.log(toId);
+    const handleChooseRoom = (id: User['id']) => {
+        // TODO: Сделать нормальный выход из сообщений
         if (toId) {
             leave({fromId, toId});
         }
         dispatch(chooseDialog(id));
-        join({fromId, toId: id});
-        router.push(`/im/${roomId}`);
     }
+
+    useEffect(() => {
+        if(toId) {
+            join({fromId, toId});
+            router.push(`/im/${getRoomIdByUsers(fromId, toId)}`);
+        }
+    }, [toId]);
 
     return (
         <Box
@@ -105,7 +110,12 @@ const Dialogs = ({sx, ...props}: DialogsProps) => {
             <ul className={styles.dialogs}>
                 <Button
                     sx={{padding: '2px', width: '100%'}}
-                    onClick={() => dispatch(chooseDialog(undefined))}
+                    onClick={() => {
+                        if (toId) {
+                            leave({fromId, toId});
+                        }
+                        dispatch(chooseDialog(undefined))
+                    }}
                     variant={toId === undefined ? "contained" : "outlined"}
                 >
                     esc
@@ -122,7 +132,7 @@ const Dialogs = ({sx, ...props}: DialogsProps) => {
                                         <Button
                                             key={user.id}
                                             sx={{padding: '2px', width: '100%'}}
-                                            onClick={() => handleChooseRoom(id, user.id)}
+                                            onClick={() => handleChooseRoom(user.id)}
                                             variant={toId === user.id ? "contained" : "outlined"}
                                         >
                                             <UserMiniCardDialog
@@ -142,8 +152,7 @@ const Dialogs = ({sx, ...props}: DialogsProps) => {
                 )}
             </ul>
         </Box>
-    )
-        ;
+    );
 };
 
 export default Dialogs;

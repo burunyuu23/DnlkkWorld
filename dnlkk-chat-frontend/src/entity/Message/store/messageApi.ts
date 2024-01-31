@@ -34,6 +34,7 @@ const messageApi = createApi({
 
                     socket.on('joinDialog', ({messages}: { messages: Message[] }) => {
                         updateCachedData((draft) => {
+                            console.log(messages)
                             draft.splice(0, draft.length, ...messages);
                         })
                     });

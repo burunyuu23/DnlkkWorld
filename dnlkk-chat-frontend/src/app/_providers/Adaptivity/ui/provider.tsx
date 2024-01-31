@@ -16,6 +16,7 @@ const Provider = ({ children }: ProviderProps) => {
     const resizeScreen = () => {
         dispatch(screenChange(window.innerWidth));
     }
+    resizeScreen();
 
     useEffect(() => {
         window.addEventListener('resize', resizeScreen);

@@ -5,31 +5,29 @@ import {Box, BoxProps} from "@mui/material";
 import cl from 'classnames';
 
 import DnlkkInput from "@/shared/components/DnlkkInput/DnlkkInput";
-import {useAppSelector} from "@/shared/hooks/rtk";
-import {selectFromId, selectToId} from "@/entity/Dialog/store/dialogSlice";
 import {useLazyGetMessagesQuery, useSendMessageMutation} from "@/entity/Message/store/messageApi";
+import {Message} from "@/entity/Message";
 
 import styles from './Chat.module.scss';
 import ChatMessage from "../../entity/Message/ui/ChatMessage/ChatMessage";
 
-// TODO: socket to rtk
-// TODO: messages to rtk + feature/Messages
-// TODO: entity/Message(id, text, from: User['id'], date, watched): ui has variant: 'my' | 'another'
+type ChatProps = BoxProps & {
+    fromId: Message['fromId'];
+    toId: Message['toId'];
+}
+
 // TODO: entity/Profile(id, username, lastOnline): ui: ProfileDialogMiniCard{in Dialogs}, ProfileDialogMainCard{in Chat}
-// TODO: ProfileDialogMiniCard have lastMessage and notWatchedMessagesCount
-// TODO: room === user.id or group.id
-// TODO: autoscroll + make prettier scroll
 // TODO: next-auth
 // TODO: think about `const message = e.target[0].value;`
-const Chat = ({sx, className, ...props}: BoxProps) => {
-    const fromId = useAppSelector(selectFromId);
-    const toId = useAppSelector(selectToId);
-    const bottom = useRef<HTMLBRElement>(null);
+const Chat = ({fromId, toId, sx, className, ...props}: ChatProps) => {
+    const bottom = useRef<HTMLUListElement>(null);
     const [sendMessage] = useSendMessageMutation();
     const [getCatalogProducts, {data: messages}] = useLazyGetMessagesQuery();
 
     useEffect(() => {
-        bottom.current?.scrollIntoView({behavior: "smooth"});
+        if (bottom.current) {
+            bottom.current.scrollTop = bottom.current.scrollHeight;
+        }
     }, [messages]);
 
     useEffect(() => {
@@ -67,41 +65,31 @@ const Chat = ({sx, className, ...props}: BoxProps) => {
                 ...sx,
             }}
         >
-            {toId &&
-                (
-                    <>
-                        <div>
-                            <h1>Chattin'!!</h1>
-                        </div>
-                        <div className={styles.body}>
-                            <ul className={styles.messages}>
-                                {messages?.map((message, index) => (
-                                    <li key={index}>
-                                        <ChatMessage 
-                                            {...message}
-                                            isMyMessage={fromId === message.fromId}
-                                        />
-                                    </li>
-                                ))}
-                            </ul>
-                            <br ref={bottom}/>
-                        </div>
-                        <form onSubmit={handleSubmit} className={styles.chatBarWrapper}>
-                            <DnlkkInput
-                                onSubmit={(e) => console.log(e.currentTarget.nodeValue)}
-                                className={styles.chatBar}
-                                placeholder="Напишите сообщение..."
+            <div>
+                <h1>Chattin'!!</h1>
+            </div>
+            <div className={styles.body}>
+                <ul className={styles.messages} ref={bottom}>
+                    {messages?.map((message, index) => (
+                        <li key={index}>
+                            <ChatMessage
+                                {...message}
+                                isMyMessage={fromId === message.fromId}
                             />
-                        </form>
-                    </>
-                ) || (
-                    <div>
-                        Выберите диалог
-                    </div>
-                )
-            }
+                        </li>
+                    ))}
+                </ul>
+            </div>
+            <form onSubmit={handleSubmit} className={styles.chatBarWrapper}>
+                <DnlkkInput
+                    onSubmit={(e) => console.log(e.currentTarget.nodeValue)}
+                    className={styles.chatBar}
+                    placeholder="Напишите сообщение..."
+                />
+            </form>
         </Box>
-    );
+    )
+        ;
 };
 
 export default Chat;
