@@ -20,7 +20,7 @@ const UserMiniCardDialog = ({fromId, notWatchedMessageCount, message, ...user}: 
     return (
         <UserMiniCardBase
             {...user}
-            bottomContentSlot={
+            bottomContentSlot={<>
                 <Typography
                     sx={{
                         color: 'text.primary',
@@ -38,17 +38,17 @@ const UserMiniCardDialog = ({fromId, notWatchedMessageCount, message, ...user}: 
                     }
                     {message.text}
                 </Typography>
-            }
-            rightContentSlot={<>
-                <Typography variant="caption" sx={{color: 'text.secondary'}}>
-                    <time dateTime={lastMessageSendAt}>{lastMessageSendAt}</time>
-                </Typography>
                 {message.fromId !== fromId && !!notWatchedMessageCount && (
                     <Typography
                         variant="caption"
                         sx={{
-                            border: '2px solid green',
-                            width: '20px',
+
+                            bgcolor: 'primary.main',
+                            margin: 0,
+                            fontWeight: 'bold',
+                            color: 'background.default',
+                            width: 'auto',
+                            padding: '0 7px',
                             height: '20px',
                             borderRadius: '50%',
                         }}
@@ -57,6 +57,11 @@ const UserMiniCardDialog = ({fromId, notWatchedMessageCount, message, ...user}: 
                     </Typography>
                 )}
             </>}
+            rightContentSlot={
+                <Typography variant="caption" sx={{color: 'text.secondary'}}>
+                    <time dateTime={lastMessageSendAt}>{lastMessageSendAt}</time>
+                </Typography>
+            }
         />
     );
 };

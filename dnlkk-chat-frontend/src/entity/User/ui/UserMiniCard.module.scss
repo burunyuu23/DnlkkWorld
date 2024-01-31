@@ -19,7 +19,9 @@
   text-align:left;
 
   & > * {
-    display: initial;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     overflow: hidden;
     text-overflow: ellipsis;
   }
