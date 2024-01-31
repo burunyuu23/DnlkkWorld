@@ -4,6 +4,7 @@
   grid-template-columns: 40px auto max-content;
   padding: 4px 7px;
   width: 100%;
+  max-width: 100%;
 }
 
 @mixin textOverflow {

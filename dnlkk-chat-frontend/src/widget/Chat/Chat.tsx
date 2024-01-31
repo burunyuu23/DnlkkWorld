@@ -61,8 +61,8 @@ const Chat = ({sx, className, ...props}: BoxProps) => {
                 bgcolor: 'background.default',
                 border: 1,
                 borderColor: 'secondary.main',
-                width: 'max-content',
-                padding: '12px 15px',
+                width: '100%',
+                padding: '12px 10px',
                 height: '100%',
                 ...sx,
             }}

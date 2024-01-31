@@ -1,7 +1,8 @@
 'use client';
 
-import React, {Fragment, useEffect, useState} from 'react';
+import React, {Fragment, useState} from 'react';
 import {Box, BoxProps, Button, InputAdornment, SvgIcon} from "@mui/material";
+import {useRouter} from 'next/navigation';
 
 import {SearchIcon} from "@/shared/icons";
 import DnlkkInput from "@/shared/components/DnlkkInput/DnlkkInput";
@@ -16,23 +17,25 @@ import {
     useLoginMutation,
     useLogoutMutation
 } from "@/entity/Dialog/store/dialogApi";
+import {User} from "@/entity/User/model/type";
+import {Room} from "@/entity/Dialog/model/types";
 
 import styles from './Dialogs.module.scss';
-import {User} from "@/entity/User/model/type";
 
 type DialogsProps = BoxProps;
 
-const Dialogs = ({ sx, ...props }: DialogsProps) => {
+const Dialogs = ({sx, ...props}: DialogsProps) => {
     const [logged, setLogged] = useState(false);
     const fromId = useAppSelector(selectFromId);
     const toId = useAppSelector(selectToId);
     const dispatch = useAppDispatch();
-    const { data: rooms } = useGetDialogsQuery(fromId);
-    const { data: users } = useGetUsersQuery();
+    const {data: rooms} = useGetDialogsQuery(fromId);
+    const {data: users} = useGetUsersQuery();
     const [leave] = useLeaveDialogMutation();
     const [join] = useJoinDialogMutation();
     const [login] = useLoginMutation();
     const [logout] = useLogoutMutation();
+    const router = useRouter();
 
     const handleChooseUser = (userId: User['id']) => {
         if (logged && userId !== fromId) {
@@ -46,16 +49,15 @@ const Dialogs = ({ sx, ...props }: DialogsProps) => {
         login(userId);
     }
 
-    useEffect(() => {
+    const handleChooseRoom = (roomId: Room['id'], id: User['id']) => {
+        console.log(toId);
         if (toId) {
-            join({fromId, toId});
+            leave({fromId, toId});
         }
-        return () => {
-            if (toId) {
-                leave({fromId, toId});
-            }
-        };
-    }, [fromId, toId]);
+        dispatch(chooseDialog(id));
+        join({fromId, toId: id});
+        router.push(`/im/${roomId}`);
+    }
 
     return (
         <Box
@@ -64,7 +66,6 @@ const Dialogs = ({ sx, ...props }: DialogsProps) => {
                 bgcolor: 'background.default',
                 border: 1,
                 borderColor: 'secondary.main',
-                width: 'max-content',
                 padding: '12px 15px',
                 height: '100%',
                 ...sx,
@@ -86,7 +87,7 @@ const Dialogs = ({ sx, ...props }: DialogsProps) => {
                 {users?.map((user) => {
                         return (
                             <Button
-                                sx={{ padding: '2px' }}
+                                sx={{padding: '2px', width: '100%'}}
                                 key={user.id}
                                 onClick={() => handleChooseUser(user.id)}
                                 variant={fromId === user.id ? "contained" : "outlined"}
@@ -103,7 +104,7 @@ const Dialogs = ({ sx, ...props }: DialogsProps) => {
             <hr/>
             <ul className={styles.dialogs}>
                 <Button
-                    sx={{ padding: '2px' }}
+                    sx={{padding: '2px', width: '100%'}}
                     onClick={() => dispatch(chooseDialog(undefined))}
                     variant={toId === undefined ? "contained" : "outlined"}
                 >
@@ -120,8 +121,8 @@ const Dialogs = ({ sx, ...props }: DialogsProps) => {
                                     return (
                                         <Button
                                             key={user.id}
-                                            sx={{ padding: '2px' }}
-                                            onClick={() => dispatch(chooseDialog(user.id))}
+                                            sx={{padding: '2px', width: '100%'}}
+                                            onClick={() => handleChooseRoom(id, user.id)}
                                             variant={toId === user.id ? "contained" : "outlined"}
                                         >
                                             <UserMiniCardDialog

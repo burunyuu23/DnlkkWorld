@@ -1,0 +1,1 @@
+export { default as AdaptivityProvider } from './ui/provider';

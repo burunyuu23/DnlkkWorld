@@ -12,3 +12,12 @@
     }
   }
 }
+
+.mobile {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  & li svg {
+      font-size: 32px;
+    }
+}

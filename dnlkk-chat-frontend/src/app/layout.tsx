@@ -7,6 +7,7 @@ import Header from "@/widget/Header/Header";
 import {StoreProvider, ThemeProvider} from "./_providers";
 import "./globals.css";
 import {SocketProvider} from "@/app/_providers/Sockets";
+import {AdaptivityProvider} from "@/app/_providers/Adaptivity";
 
 const inter = Inter({subsets: ["latin"]});
 
@@ -24,10 +25,14 @@ export default function RootLayout({children}: LayoutProps) {
         <body className={inter.className}>
         <StoreProvider>
             <SocketProvider>
-                <ThemeProvider>
-                    <Header/>
-                    {children}
-                </ThemeProvider>
+                <AdaptivityProvider>
+                    <ThemeProvider>
+                        <Header/>
+                        <div className="wrapper">
+                            {children}
+                        </div>
+                    </ThemeProvider>
+                </AdaptivityProvider>
             </SocketProvider>
         </StoreProvider>
         </body>
