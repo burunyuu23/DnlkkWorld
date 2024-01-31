@@ -86,8 +86,13 @@ const getLast50MessagesFromUser = (toId: string, fromId: string) => {
     return [];
 };
 
-const getLast50Messages = (room: Room, fromId: string) => {
+export const watchAllMessages =(room: Room, fromId: string) => {
     const messages = room.messages;
     for (let index = messages.length - 1; index >= 0 && watchMessage(fromId, messages.at(index)); index--) {}
+    return messages;
+}
+
+const getLast50Messages = (room: Room, fromId: string) => {
+    const messages = watchAllMessages(room, fromId);
     return messages.slice(messages.length - 50 - 1);
 };

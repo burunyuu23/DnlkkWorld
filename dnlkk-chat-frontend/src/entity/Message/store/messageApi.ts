@@ -26,11 +26,6 @@ const messageApi = createApi({
                     await cacheDataLoaded;
 
                     const receiveMessage = ({message}: { message: Message }) => {
-                        if (message.toId === roomId.fromId) {
-                            console.log(message)
-                            console.log(roomId)
-                            socket.emit('watched', { ...roomId, messageId: message.id });
-                        }
                         updateCachedData((draft) => {
                             draft.push(message)
                         })

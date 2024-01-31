@@ -2,7 +2,7 @@ import express from "express";
 import http from "http";
 import cors from "cors";
 import {Server, Socket} from 'socket.io';
-import {addMessage, getLast50MessagesFrom, getRoomIdByUsers, Message, watchedMessage} from "./data/messages";
+import {addMessage, getRoomIdByUsers, Message, watchAllMessages, watchedMessage} from "./data/messages";
 import router from "./api/route";
 import {User} from "./data/users";
 import {getRoomById, roomToDto} from "./data/rooms";
@@ -31,18 +31,14 @@ io.on('connection', (socket) => {
         if (!allClients.has(fromId)) {
             socket.data = { userId: fromId };
             allClients.set(fromId, socket);
-            for (const entry of allClients.values()) { console.log({ data: entry.data, id: entry.id }); }
+            console.log(Array.from(allClients.values()).map((client) => ({ data: client.data, id: client.id })));
         }
     })
 
     socket.on('join', ({toId, fromId}: Pick<Message, 'toId' | 'fromId'>) => {
-        const room = getRoomIdByUsers(toId, fromId);
-
-        socket.join(room);
-
-        socket.emit('messages', {
-            messages: getLast50MessagesFrom(toId, fromId),
-        });
+        const roomId = getRoomIdByUsers(toId, fromId);
+        watchAllMessages(getRoomById(roomId), fromId);
+        socket.join(roomId);
     })
 
     socket.on('watched', ({toId, fromId, messageId}: Pick<Message, 'toId' | 'fromId'> & { messageId: Message['id'] }) => {
@@ -56,27 +52,33 @@ io.on('connection', (socket) => {
 
     socket.on('sendMessage', ({fromId, text, toId}: Omit<Message, 'sendAt'>) => {
         const message = addMessage(toId, fromId, text);
-        for (const entry of allClients.values()) { console.log({ data: entry.data, id: entry.id }); }
+        console.log(Array.from(allClients.values()).map((client) => ({ data: client.data, id: client.id })));
 
+        const room = roomToDto(getRoomById(getRoomIdByUsers(toId, fromId)));
         const resp = {
-            message
+            message,
+            notWatchedMessageCount: room.notWatchedMessageCount
         };
 
-        io.to(getRoomIdByUsers(toId, fromId)).emit('message', resp)
+        const roomId = getRoomIdByUsers(toId, fromId);
+        io.to(roomId).emit('message', resp)
+
+        const client = allClients.get(toId);
+        if (client && client.rooms.has(roomId)) {
+            message.watched = true;
+        }
 
         setTimeout(function () {
-            const client = allClients.get(toId);
-
             if (!message.watched) {
                 if (!client) {
-                    const notification = notifications.get(toId);
-                    if (notification) {
-                        notification.push(message);
-                    } else {
-                        notifications.set(toId, [message]);
-                    }
+                    // const notification = notifications.get(toId);
+                    // if (notification) {
+                    //     notification.push(message);
+                    // } else {
+                    //     notifications.set(toId, [message]);
+                    // }
                 } else {
-                    client.emit('message', { message });
+                    client.emit('message', resp);
                 }
             }
         }, 1000);
@@ -85,16 +87,17 @@ io.on('connection', (socket) => {
     })
 
     socket.on('leave', ({toId, fromId}: Pick<Message, 'toId' | 'fromId'>) => {
-        const room = getRoomIdByUsers(toId, fromId);
+        const roomId = getRoomIdByUsers(toId, fromId);
+        console.log(`User ${fromId} leave room ${roomId}`)
 
-        socket.leave(room);
+        socket.leave(roomId);
     });
 
     socket.on('disconnect', () => {
         allClients.delete(socket.data.userId);
 
         console.log(`User ${socket.data.userId} disconnect!`);
-        for (const entry of allClients.values()) { console.log({ data: entry.data, id: entry.id }); }
+        console.log(Array.from(allClients.values()).map((client) => ({ data: client.data, id: client.id })));
     })
 });
 

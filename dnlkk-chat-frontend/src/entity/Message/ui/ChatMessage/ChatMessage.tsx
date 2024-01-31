@@ -31,7 +31,8 @@ const ChatMessage = ({text, sendAt, watched, toId, fromId, isMyMessage}: ChatMes
             padding: "0 10px"
         }}>
             <Box sx={{
-                padding: "4px 4px 0 4px"
+                padding: "4px 4px 0 4px",
+                display: 'flex'
             }}>
                 {/*<header>*/}
                 {/*    <b>Иван Говнов</b>*/}
@@ -43,16 +44,16 @@ const ChatMessage = ({text, sendAt, watched, toId, fromId, isMyMessage}: ChatMes
                     }}
                 >
                     {text}
-                    <Box sx={{
-                        color: "text.secondary",
-                        float: 'right',
-                        padding: '5px 0 0 5px'
-                    }}>
-                        <time dateTime={finalDate}>
-                            {finalDate}
-                        </time>
-                    </Box>
                 </Typography>
+                <Box sx={{
+                    color: "text.secondary",
+                    float: 'right',
+                    padding: '5px 0 0 5px'
+                }}>
+                    <time dateTime={finalDate}>
+                        {finalDate}
+                    </time>
+                </Box>
             </Box>
 
         </Box>

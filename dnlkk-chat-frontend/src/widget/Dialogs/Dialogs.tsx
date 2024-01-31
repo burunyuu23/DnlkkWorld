@@ -1,6 +1,6 @@
 'use client';
 
-import React, {useEffect, useState} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import {Box, BoxProps, Button, InputAdornment, SvgIcon} from "@mui/material";
 
 import {SearchIcon} from "@/shared/icons";
@@ -115,12 +115,12 @@ const Dialogs = ({ sx, ...props }: DialogsProps) => {
                             :
                             participants;
                         return (
-                            <>
+                            <Fragment key={id}>
                                 {users.map((user) => {
                                     return (
                                         <Button
+                                            key={user.id}
                                             sx={{ padding: '2px' }}
-                                            key={`${id}_${user.id}`}
                                             onClick={() => dispatch(chooseDialog(user.id))}
                                             variant={toId === user.id ? "contained" : "outlined"}
                                         >
@@ -135,7 +135,7 @@ const Dialogs = ({ sx, ...props }: DialogsProps) => {
 
                                 })
                                 }
-                            </>
+                            </Fragment>
                         )
                     }
                 )}

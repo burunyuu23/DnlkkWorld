@@ -19,7 +19,7 @@ const dialogApi = messageApi.injectEndpoints({
             Room[],
             Message['fromId']
         >({
-            query: (fromId) => `dialogs/${fromId}`,
+            query: (fromId) => `dialogs?user=${fromId}`,
             async onCacheEntryAdded(
                 fromId,
                 {updateCachedData, cacheDataLoaded, cacheEntryRemoved}
@@ -28,16 +28,14 @@ const dialogApi = messageApi.injectEndpoints({
                 try {
                     await cacheDataLoaded;
 
-                    const receiveMessage = ({message}: { message: Message }) => {
+                    const receiveMessage = ({message, notWatchedMessageCount}: { message: Message, notWatchedMessageCount: Room['notWatchedMessageCount'] }) => {
                         updateCachedData((draft) => {
                             const draftedRoom = draft.find(
                                 (draftedRoom) => draftedRoom.id === message.roomId
                             );
                             if (draftedRoom) {
                                 draftedRoom.lastMessage = message;
-                                if (!message.watched && message.toId === fromId) {
-                                    draftedRoom.notWatchedMessageCount++;
-                                }
+                                draftedRoom.notWatchedMessageCount = notWatchedMessageCount;
                             }
                         });
                     }
@@ -55,11 +53,28 @@ const dialogApi = messageApi.injectEndpoints({
                 return '/';
             },
         }),
-        joinDialog: build.mutation<void, Pick<Message, 'toId' | 'fromId'>>({
+        joinDialog: build.mutation<Room, Pick<Message, 'toId' | 'fromId'>>({
             query: (roomId) => {
                 const socket = getSocket(baseUrl);
                 socket.emit('join', roomId);
-                return '/';
+                return `dialogs?fromId=${roomId.fromId}&toId=${roomId.toId}`;
+            },
+            async onQueryStarted(roomId, { dispatch, queryFulfilled }) {
+                try {
+                const { data: room } = await queryFulfilled;
+                const patchResult = dispatch(
+                    dialogApi.util.updateQueryData('getDialogs', roomId.fromId, (draft) => {
+                        const draftedRoomId = draft.findIndex(
+                            (draftedRoom) => draftedRoom.id === room.id
+                        );
+                        if (draftedRoomId > -1) {
+                            draft.splice(draftedRoomId, 1, room);
+                        }
+                    })
+                )
+                } catch(e) {
+                    console.log(e);
+                }
             },
         }),
         login: build.mutation<void, Message['fromId']>({
