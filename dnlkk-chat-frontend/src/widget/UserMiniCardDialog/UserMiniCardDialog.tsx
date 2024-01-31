@@ -2,7 +2,7 @@ import React from 'react';
 
 import {User} from '@/entity/User/model/type';
 import UserMiniCardBase from "@/entity/User/ui/UserMiniCard";
-import {Message} from '@/entity/Message';
+import {lastMessageTime, Message} from '@/entity/Message';
 import {Typography} from "@mui/material";
 
 type UserMiniCardDialogProps = User & {
@@ -12,12 +12,16 @@ type UserMiniCardDialogProps = User & {
 };
 
 const UserMiniCardDialog = ({fromId, notWatchedMessageCount, message, ...user}: UserMiniCardDialogProps) => {
+    if (!message) {
+        return <UserMiniCardBase {...user} />;
+    }
+
+    const lastMessageSendAt = lastMessageTime(message.sendAt);
     return (
         <UserMiniCardBase
             {...user}
             bottomContentSlot={
-                message &&
-                (<Typography
+                <Typography
                     sx={{
                         color: 'text.primary',
                         display: 'flex',
@@ -33,36 +37,26 @@ const UserMiniCardDialog = ({fromId, notWatchedMessageCount, message, ...user}: 
                         </Typography>
                     }
                     {message.text}
-                </Typography>)
+                </Typography>
             }
-            rightContentSlot={
-                <>
-                    {
-                        message &&
-                        (
-                            <>
-                                <Typography variant="caption" sx={{color: 'text.secondary'}}>
-                                    {/* TODO: также с датами как и в сообщении */}
-                                    <time>1ч</time>
-                                </Typography>
-                                {message.fromId !== fromId && !!notWatchedMessageCount && (
-                                    <Typography
-                                        variant="caption"
-                                        sx={{
-                                            border: '2px solid green',
-                                            width: '20px',
-                                            height: '20px',
-                                            borderRadius: '50%',
-                                        }}
-                                    >
-                                        {notWatchedMessageCount}
-                                    </Typography>
-                                )}
-                            </>
-                        )
-                    }
-                </>
-            }
+            rightContentSlot={<>
+                <Typography variant="caption" sx={{color: 'text.secondary'}}>
+                    <time dateTime={lastMessageSendAt}>{lastMessageSendAt}</time>
+                </Typography>
+                {message.fromId !== fromId && !!notWatchedMessageCount && (
+                    <Typography
+                        variant="caption"
+                        sx={{
+                            border: '2px solid green',
+                            width: '20px',
+                            height: '20px',
+                            borderRadius: '50%',
+                        }}
+                    >
+                        {notWatchedMessageCount}
+                    </Typography>
+                )}
+            </>}
         />
     );
 };

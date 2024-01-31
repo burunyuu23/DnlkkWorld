@@ -77,7 +77,10 @@ const Chat = ({sx, className, ...props}: BoxProps) => {
                             <ul className={styles.messages}>
                                 {messages?.map((message, index) => (
                                     <li key={index}>
-                                        <ChatMessage {...message} isMyMessage={fromId === message.fromId}/>
+                                        <ChatMessage 
+                                            {...message}
+                                            isMyMessage={fromId === message.fromId}
+                                        />
                                     </li>
                                 ))}
                             </ul>

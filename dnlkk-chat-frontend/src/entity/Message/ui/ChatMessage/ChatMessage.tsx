@@ -3,17 +3,14 @@ import {Box, Typography} from "@mui/material";
 import mix from 'mix-css-color'
 
 import {type Message} from "../../model/type";
+import dayjs from "dayjs";
 
 type ChatMessageProps = Message & {
     isMyMessage: boolean;
 };
 
 const ChatMessage = ({text, sendAt, watched, toId, fromId, isMyMessage}: ChatMessageProps) => {
-    // TODO: Написать функцию
-    //  перевода sendAt в время/дату + 1ч/1д (назад)
-    //  и протестировать её jest и cypress
-    const date = new Date(sendAt);
-    const finalDate = `${date.getHours()}:${date.getUTCMinutes()}`;
+    const finalDate = dayjs(sendAt).format('HH:mm');
     return (
         <Box sx={{
             bgcolor: ({palette}) => {

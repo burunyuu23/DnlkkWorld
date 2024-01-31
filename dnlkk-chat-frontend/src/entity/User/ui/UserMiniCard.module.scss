@@ -6,11 +6,12 @@
   width: 100%;
 }
 
-.bottomContent {
+@mixin textOverflow {
+  width: 100%;
   display: grid;
-  max-width: 100%;
-  padding: 0 7px;
-  justify-items: start;
+  justify-content: space-between;
+  align-items: center;
+  grid-template-columns: auto max-content;
 
   overflow: hidden;
   white-space: nowrap;
@@ -18,15 +19,23 @@
   text-align:left;
 
   & > * {
-    width: 100%;
     display: initial;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 }
 
-.rightContent {
+.content {
   display: grid;
-  justify-content: end;
-  gap: 8px;
+  width: 100%;
+  padding-left: 7px;
+}
+
+.topContent {
+  @include textOverflow;
+}
+
+.bottomContent {
+  justify-content: space-between;
+  @include textOverflow;
 }

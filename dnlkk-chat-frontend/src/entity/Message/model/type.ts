@@ -4,6 +4,6 @@ export type Message = {
     fromId: string;
     roomId: string;
     text: string;
-    sendAt: Date;
+    sendAt: string;
     watched: boolean;
 };

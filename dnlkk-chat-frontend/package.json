@@ -17,6 +17,7 @@
     "@reduxjs/toolkit": "^2.1.0",
     "@types/react-redux": "^7.1.33",
     "classnames": "^2.5.1",
+    "dayjs": "^1.11.10",
     "emoji-picker-react": "^4.7.10",
     "mix-css-color": "^0.2.0",
     "next": "14.1.0",
