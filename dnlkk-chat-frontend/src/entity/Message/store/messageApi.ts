@@ -30,8 +30,13 @@ const messageApi = createApi({
                             draft.push(message)
                         })
                     }
-
                     socket.on('message', receiveMessage);
+
+                    socket.on('joinDialog', ({messages}: { messages: Message[] }) => {
+                        updateCachedData((draft) => {
+                            draft.splice(0, draft.length, ...messages);
+                        })
+                    });
                 } catch {
                 }
                 await cacheEntryRemoved

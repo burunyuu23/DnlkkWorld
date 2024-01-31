@@ -2,7 +2,7 @@ import express from "express";
 import http from "http";
 import cors from "cors";
 import {Server, Socket} from 'socket.io';
-import {addMessage, getRoomIdByUsers, Message, watchAllMessages, watchedMessage} from "./data/messages";
+import {addMessage, getRoomIdByUsers, Message, watchAllMessages} from "./data/messages";
 import router from "./api/route";
 import {User} from "./data/users";
 import {getRoomById, roomToDto} from "./data/rooms";
@@ -37,36 +37,29 @@ io.on('connection', (socket) => {
 
     socket.on('join', ({toId, fromId}: Pick<Message, 'toId' | 'fromId'>) => {
         const roomId = getRoomIdByUsers(toId, fromId);
-        watchAllMessages(getRoomById(roomId), fromId);
+        const room = getRoomById(roomId);
+        const messages = watchAllMessages(room, fromId);
         socket.join(roomId);
+        io.to(roomId).emit('joinDialog', { messages });
     })
-
-    socket.on('watched', ({toId, fromId, messageId}: Pick<Message, 'toId' | 'fromId'> & { messageId: Message['id'] }) => {
-        console.log(toId, fromId, messageId);
-        const roomId = watchedMessage(toId, fromId, messageId);
-        const room = roomToDto(getRoomById(roomId));
-        socket.emit('dialog', {
-            room
-        })
-    });
 
     socket.on('sendMessage', ({fromId, text, toId}: Omit<Message, 'sendAt'>) => {
         const message = addMessage(toId, fromId, text);
         console.log(Array.from(allClients.values()).map((client) => ({ data: client.data, id: client.id })));
+
+        const roomId = getRoomIdByUsers(toId, fromId);
+
+        const client = allClients.get(toId);
+        if (client && client.rooms.has(roomId)) {
+            message.watched = true;
+        }
 
         const room = roomToDto(getRoomById(getRoomIdByUsers(toId, fromId)));
         const resp = {
             message,
             notWatchedMessageCount: room.notWatchedMessageCount
         };
-
-        const roomId = getRoomIdByUsers(toId, fromId);
-        io.to(roomId).emit('message', resp)
-
-        const client = allClients.get(toId);
-        if (client && client.rooms.has(roomId)) {
-            message.watched = true;
-        }
+        io.to(roomId).emit('message', resp);
 
         setTimeout(function () {
             if (!message.watched) {

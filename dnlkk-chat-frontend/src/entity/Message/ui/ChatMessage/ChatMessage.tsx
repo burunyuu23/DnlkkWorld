@@ -53,6 +53,7 @@ const ChatMessage = ({text, sendAt, watched, toId, fromId, isMyMessage}: ChatMes
                     <time dateTime={finalDate}>
                         {finalDate}
                     </time>
+                    {isMyMessage && watched && <span>W</span>}
                 </Box>
             </Box>
 

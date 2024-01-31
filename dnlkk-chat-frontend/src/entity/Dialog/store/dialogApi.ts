@@ -28,7 +28,10 @@ const dialogApi = messageApi.injectEndpoints({
                 try {
                     await cacheDataLoaded;
 
-                    const receiveMessage = ({message, notWatchedMessageCount}: { message: Message, notWatchedMessageCount: Room['notWatchedMessageCount'] }) => {
+                    const receiveMessage = ({message, notWatchedMessageCount}: {
+                        message: Message,
+                        notWatchedMessageCount: Room['notWatchedMessageCount']
+                    }) => {
                         updateCachedData((draft) => {
                             const draftedRoom = draft.find(
                                 (draftedRoom) => draftedRoom.id === message.roomId
@@ -59,21 +62,21 @@ const dialogApi = messageApi.injectEndpoints({
                 socket.emit('join', roomId);
                 return `dialogs?fromId=${roomId.fromId}&toId=${roomId.toId}`;
             },
-            async onQueryStarted(roomId, { dispatch, queryFulfilled }) {
+            async onQueryStarted(roomId, {dispatch, queryFulfilled}) {
                 try {
-                const { data: room } = await queryFulfilled;
-                const patchResult = dispatch(
-                    dialogApi.util.updateQueryData('getDialogs', roomId.fromId, (draft) => {
-                        const draftedRoomId = draft.findIndex(
-                            (draftedRoom) => draftedRoom.id === room.id
-                        );
-                        if (draftedRoomId > -1) {
-                            draft.splice(draftedRoomId, 1, room);
-                        }
-                    })
-                )
-                } catch(e) {
-                    console.log(e);
+                    const {data: room} = await queryFulfilled;
+                    const patchResult = dispatch(
+                        dialogApi.util.updateQueryData('getDialogs', roomId.fromId, (draft) => {
+                            const draftedRoomId = draft.findIndex(
+                                (draftedRoom) => draftedRoom.id === room.id
+                            );
+                            if (draftedRoomId > -1) {
+                                draft.splice(draftedRoomId, 1, room);
+                            }
+                        })
+                    )
+                } catch (e) {
+                    console.log(e)
                 }
             },
         }),
