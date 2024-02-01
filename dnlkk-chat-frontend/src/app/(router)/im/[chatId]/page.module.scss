@@ -1,0 +1,5 @@
+.dialogs {
+  @include respond-to($desktop) {
+    display: none;
+  }
+}

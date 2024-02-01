@@ -11,13 +11,18 @@
       font-size: 16px;
     }
   }
-}
 
-.mobile {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  & li svg {
-      font-size: 32px;
+  @include respond-to($desktop) {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    & li {
+      & svg {
+        font-size: 32px;
+      }
+      & p {
+        display: none;
+      }
     }
+  }
 }

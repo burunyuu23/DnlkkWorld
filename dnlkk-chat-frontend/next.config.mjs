@@ -14,6 +14,9 @@ const pwaConfig = withPWA({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     reactStrictMode: false,
+    sassOptions: {
+        additionalData: `@import "@/shared/styles/vars.scss";`,
+    },
     publicRuntimeConfig: {
         NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
         NEXT_MESSAGE_API_URL: process.env.NEXT_MESSAGE_API_URL,

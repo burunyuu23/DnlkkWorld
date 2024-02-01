@@ -41,17 +41,19 @@ const ChatMessage = ({text, sendAt, watched, toId, fromId, isMyMessage}: ChatMes
                     }}
                 >
                     {text}
+                    <Box sx={{
+                        color: "text.secondary",
+                        float: 'right',
+                        padding: '5px 0 0 5px',
+                        display: 'flex',
+                        alignItems: 'end',
+                    }}>
+                        <time dateTime={finalDate}>
+                            {finalDate}
+                        </time>
+                        {isMyMessage && watched && <span>W</span>}
+                    </Box>
                 </Typography>
-                <Box sx={{
-                    color: "text.secondary",
-                    float: 'right',
-                    padding: '5px 0 0 5px'
-                }}>
-                    <time dateTime={finalDate}>
-                        {finalDate}
-                    </time>
-                    {isMyMessage && watched && <span>W</span>}
-                </Box>
             </Box>
 
         </Box>

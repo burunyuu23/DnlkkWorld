@@ -1,6 +1,5 @@
 import {configureStore} from '@reduxjs/toolkit'
 import {themeSlice} from "@/feature/ToggleTheme";
-import {adaptivitySlice} from "@/app/_providers/Adaptivity/store/adaptivitySlice";
 import {dialogSlice} from "@/entity/Dialog/store/dialogSlice";
 import messageApi from "@/entity/Message/store/messageApi";
 
@@ -8,7 +7,6 @@ export const makeStore = () => {
     return configureStore({
         reducer: {
             [themeSlice.name]: themeSlice.reducer,
-            [adaptivitySlice.name]: adaptivitySlice.reducer,
             [dialogSlice.name]: dialogSlice.reducer,
             [messageApi.reducerPath]: messageApi.reducer
         },

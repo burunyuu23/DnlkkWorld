@@ -24,7 +24,6 @@ const UserMiniCardDialog = ({fromId, notWatchedMessageCount, message, ...user}: 
                 <Typography
                     sx={{
                         color: 'text.primary',
-                        display: 'flex',
                     }}
                     variant="caption"
                 >

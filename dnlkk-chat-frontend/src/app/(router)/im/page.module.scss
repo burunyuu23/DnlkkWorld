@@ -1,0 +1,5 @@
+.chat {
+  @include respond-to($desktop) {
+    display: none;
+  }
+}
