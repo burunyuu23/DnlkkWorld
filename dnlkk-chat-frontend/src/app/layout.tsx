@@ -1,5 +1,5 @@
 import {ReactNode} from "react";
-import type {Metadata} from "next";
+import type {Metadata, Viewport} from "next";
 import {Inter} from "next/font/google";
 
 import Header from "@/widget/Header/Header";
@@ -15,6 +15,11 @@ export const metadata: Metadata = {
     title: "DnlkkChat",
     description: "Чат от Dnlkk",
     icons: '/favicon.ico',
+    manifest: '/manifest.json',
+};
+
+export const viewport: Viewport = {
+    themeColor: "#71eb71",
 };
 
 type LayoutProps = Readonly<{ children: ReactNode }>;

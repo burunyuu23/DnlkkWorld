@@ -1,3 +1,16 @@
+import withPWA from 'next-pwa';
+import runtimeCaching from 'next-pwa/cache.js';
+
+const isProduction = process.env.NODE_ENV === 'production';
+
+const pwaConfig = withPWA({
+    dest: 'public',
+    disable: !isProduction,
+    register: true,
+    skipWaiting: true,
+    runtimeCaching
+});
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     reactStrictMode: false,
@@ -5,6 +18,7 @@ const nextConfig = {
         NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
         NEXT_MESSAGE_API_URL: process.env.NEXT_MESSAGE_API_URL,
     },
+    ...pwaConfig,
     images: {
         remotePatterns: [
             {

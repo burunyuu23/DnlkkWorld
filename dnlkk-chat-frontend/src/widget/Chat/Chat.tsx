@@ -66,7 +66,7 @@ const Chat = ({fromId, toId, sx, className, ...props}: ChatProps) => {
             }}
         >
             <div>
-                <h1>Chattin'!!</h1>
+                <h1>Chattin!!</h1>
             </div>
             <div className={styles.body}>
                 <ul className={styles.messages} ref={bottom}>

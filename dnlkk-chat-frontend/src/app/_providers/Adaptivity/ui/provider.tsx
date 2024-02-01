@@ -10,18 +10,24 @@ type ProviderProps = {
     children: ReactNode;
 };
 
-const Provider = ({ children }: ProviderProps) => {
+const Provider = ({children}: ProviderProps) => {
     const dispatch = useAppDispatch();
 
     const resizeScreen = () => {
-        dispatch(screenChange(window.innerWidth));
+        if (window) {
+            dispatch(screenChange(window.innerWidth));
+        }
     }
-    resizeScreen();
 
     useEffect(() => {
-        window.addEventListener('resize', resizeScreen);
+        if (window) {
+            resizeScreen();
+            window.addEventListener('resize', resizeScreen);
+        }
         return () => {
-            window.removeEventListener('resize', resizeScreen);
+            if (window) {
+                window.removeEventListener('resize', resizeScreen);
+            }
         }
     }, []);
 
