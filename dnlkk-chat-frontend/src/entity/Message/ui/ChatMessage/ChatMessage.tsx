@@ -41,13 +41,16 @@ const ChatMessage = ({text, sendAt, watched, toId, fromId, isMyMessage}: ChatMes
                     }}
                 >
                     {text}
-                    <Box sx={{
-                        color: "text.secondary",
-                        float: 'right',
-                        padding: '5px 0 0 5px',
-                        display: 'flex',
-                        alignItems: 'end',
-                    }}>
+                    <Box
+                        component="span"
+                        sx={{
+                            color: "text.secondary",
+                            float: 'right',
+                            padding: '5px 0 0 5px',
+                            display: 'flex',
+                            alignItems: 'end',
+                        }}
+                    >
                         <time dateTime={finalDate}>
                             {finalDate}
                         </time>
