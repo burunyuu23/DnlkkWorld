@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="daee8c6a-45ff-437c-8383-981c260dd7a6" name="Changes" comment="dnlkkworld-backend IS NOT A MODULE &gt;.&lt; !!!">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="daee8c6a-45ff-437c-8383-981c260dd7a6" name="Changes" comment="idiot module">
+      <change beforePath="$PROJECT_DIR$/dnlkkworld-backend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/dnlkkworld-backend/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -238,7 +238,15 @@
       <option name="project" value="LOCAL" />
       <updated>1707238224513</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="idiot module">
+      <option name="closed" value="true" />
+      <created>1707239732014</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1707239732014</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -291,6 +299,7 @@
     <MESSAGE value="rename dnlkkchat into dnlkkworld&#10;&#10;add nest js services:&#10;    add keycloak&#10;    add user service&#10;    add qs (questionnaire system) service&#10;    rework chat service (ws)&#10;    with db!&#10;&#10;frontend not adapt to this changes&#10;we'll right back" />
     <MESSAGE value="rename dnlkkchat into dnlkkworld&#10;&#10;add nest js services:&#10;    add keycloak&#10;    add user service&#10;    add qs (questionnaire system) service&#10;    rework chat service (ws)&#10;    with db!&#10;&#10;frontend not adapt to these changes&#10;we'll right back" />
     <MESSAGE value="dnlkkworld-backend IS NOT A MODULE &gt;.&lt; !!!" />
-    <option name="LAST_COMMIT_MESSAGE" value="dnlkkworld-backend IS NOT A MODULE &gt;.&lt; !!!" />
+    <MESSAGE value="idiot module" />
+    <option name="LAST_COMMIT_MESSAGE" value="idiot module" />
   </component>
 </project>
