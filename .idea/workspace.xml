@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="daee8c6a-45ff-437c-8383-981c260dd7a6" name="Changes" comment="remove useless Adaptivity and change it to scss cool thing">
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/DnlkkWorld.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/icon.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/prettier.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/watcherTasks.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-backend/src/data/users.ts" beforeDir="false" afterPath="$PROJECT_DIR$/dnlkk-chat-backend/src/data/users.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/.env.development" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/.env.production" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/.eslintrc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/next.config.mjs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/pnpm-lock.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/process.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/public/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/public/fonts/Jost-VariableFont_wght.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/public/fonts/OFL.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/public/fonts/README.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/public/icon-192x192.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/public/icon-256x256.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/public/icon-384x384.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/public/icon-512x512.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/public/manifest.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/app/(router)/im/[chatId]/page.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/app/(router)/im/[chatId]/page.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/app/(router)/im/layout.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/app/(router)/im/page.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/app/(router)/im/page.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/app/(router)/page.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/app/(router)/page.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/app/_providers/MUI/config/theme.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/app/_providers/MUI/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/app/_providers/MUI/ui/Provider.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/app/_providers/Sockets/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/app/_providers/Sockets/ui/provider.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/app/_providers/Store/config/store.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/app/_providers/Store/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/app/_providers/Store/ui/Provider.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/app/_providers/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/app/globals.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/app/layout.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/entity/Dialog/model/getRoomIdByUsers.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/entity/Dialog/model/types.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/entity/Dialog/store/dialogApi.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/entity/Dialog/store/dialogSlice.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/entity/Message/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/entity/Message/model/lastMessageTime.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/entity/Message/model/type.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/entity/Message/store/messageApi.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/entity/Message/ui/ChatMessage/ChatMessage.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/entity/Message/ui/DialogMessage/DialogMessage.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/entity/Message/ui/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/entity/User/model/type.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/entity/User/ui/UserMiniCard.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/entity/User/ui/UserMiniCard.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/feature/Logo/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/feature/Logo/ui/MainLogo.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/feature/Logo/ui/MainLogo.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/feature/ToggleTheme/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/feature/ToggleTheme/store/themeSlice.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/feature/ToggleTheme/ui/Switcher.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/shared/api/socket.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/shared/components/DnlkkInput/DnlkkInput.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/shared/components/DnlkkInput/DnlkkInput.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/shared/components/DnlkkInput/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/shared/components/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/shared/hooks/rtk.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/shared/icons/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/shared/icons/logo/favicon.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/shared/icons/logo/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/shared/icons/menu/clips.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/shared/icons/menu/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/shared/icons/menu/message.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/shared/icons/menu/music.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/shared/icons/menu/profile.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/shared/icons/other/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/shared/icons/other/search.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/shared/styles/vars.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/shared/utils/typeUnpacked.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/widget/Chat/Chat.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/widget/Chat/Chat.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/widget/Chat/EmptyChat.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/widget/Dialogs/Dialogs.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/widget/Dialogs/Dialogs.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/widget/Header/Header.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/widget/Header/Header.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/widget/Menu/Menu.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/widget/Menu/Menu.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/widget/UserMiniCardChat/UserMiniCardChat.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/src/widget/UserMiniCardDialog/UserMiniCardDialog.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkk-chat-frontend/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkkworld-backend/src/chat/chat.gateway.ts" beforeDir="false" afterPath="$PROJECT_DIR$/dnlkkworld-backend/src/chat/chat.gateway.ts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript JSX File" />
+        <option value="TypeScript File" />
+        <option value="SCSS File" />
+      </list>
+    </option>
+  </component>
+  <component name="FormatOnSaveOptions">
+    <option name="myRunOnSave" value="false" />
+    <option name="myAllFileTypesSelected" value="true" />
+    <option name="mySelectedFileTypes">
+      <set />
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/dnlkk-chat-frontend" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="ROOT_SYNC" value="SYNC" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="OptimizeOnSaveOptions">
+    <option name="myRunOnSave" value="true" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;8be08bf9&quot;,
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2bZsQYshEsmTxOky2sYcK0a03Jg" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;21.6.1&quot;,
+    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;20.11.9&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/user/DnlkkProjects/DnlkkWorld&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;SCSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_interpreter_path&quot;: &quot;node&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;pnpm&quot;,
+    &quot;npm.backend-dev.executor&quot;: &quot;Run&quot;,
+    &quot;npm.frontend-dev.executor&quot;: &quot;Run&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;C:\\Users\\user\\DnlkkProjects\\DnlkkWorld\\dnlkk-chat-backend-nest\\node_modules\\prettier&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\user\\DnlkkProjects\\DnlkkWorld\\dnlkk-chat-frontend\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\user\DnlkkProjects\DnlkkWorld\dnlkk-chat-frontend" />
+      <recent name="C:\Users\user\DnlkkProjects\DnlkkWorld\dnlkk-chat-frontend\src\entity\User\ui" />
+      <recent name="C:\Users\user\DnlkkProjects\DnlkkWorld\dnlkk-chat-frontend\src\entity\Message\ui" />
+      <recent name="C:\Users\user\DnlkkProjects\DnlkkWorld" />
+      <recent name="C:\Users\user\DnlkkProjects\DnlkkWorld\dnlkk-chat-backend" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\user\DnlkkProjects\DnlkkWorld\dnlkk-chat-frontend\public" />
+      <recent name="C:\Users\user\DnlkkProjects\DnlkkWorld\dnlkk-chat-frontend\src\widget\UserMiniCardDialog" />
+      <recent name="C:\Users\user\DnlkkProjects\DnlkkWorld\dnlkk-chat-frontend\src\entity\Message\model" />
+      <recent name="C:\Users\user\DnlkkProjects\DnlkkWorld\dnlkk-chat-frontend\src\widget\UserMiniCardDialog\ui" />
+      <recent name="C:\Users\user\DnlkkProjects\DnlkkWorld\dnlkk-chat-frontend\src\widget\UserMiniCardChat" />
+    </key>
+  </component>
+  <component name="RunManager" selected="npm.backend-dev">
+    <configuration name="backend-dev" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/dnlkk-chat-backend/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="dev" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="frontend-dev" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/dnlkk-chat-frontend/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="dev" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="npm.frontend-dev" />
+      <item itemvalue="npm.backend-dev" />
+    </list>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="daee8c6a-45ff-437c-8383-981c260dd7a6" name="Changes" comment="" />
+      <created>1706433920067</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1706433920067</updated>
+      <workItem from="1706433921184" duration="4325000" />
+      <workItem from="1706444366654" duration="27615000" />
+      <workItem from="1706477579289" duration="147000" />
+      <workItem from="1706477728827" duration="10000" />
+      <workItem from="1706477749166" duration="1365000" />
+      <workItem from="1706508945811" duration="1502000" />
+    </task>
+    <task id="LOCAL-00001" summary="lmao rofls">
+      <option name="closed" value="true" />
+      <created>1706476721920</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1706476721920</updated>
+    </task>
+    <task id="LOCAL-00002" summary="lmao rofls">
+      <option name="closed" value="true" />
+      <created>1706478244082</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1706478244082</updated>
+    </task>
+    <task id="LOCAL-00003" summary="fix sockets reconnect&#10;add users &#10;    and rooms &#10;    and messages and&#10;some magic">
+      <option name="closed" value="true" />
+      <created>1706531281796</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1706531281796</updated>
+    </task>
+    <task id="LOCAL-00004" summary="some refactor&#10;(now i know how work with cache in rtk yea im cool)&#10;dialogs working cool!">
+      <option name="closed" value="true" />
+      <created>1706642653095</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1706642653095</updated>
+    </task>
+    <task id="LOCAL-00005" summary="now messages watched after user join room">
+      <option name="closed" value="true" />
+      <created>1706700091059</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1706700091059</updated>
+    </task>
+    <task id="LOCAL-00006" summary="set watched when user joinDialog">
+      <option name="closed" value="true" />
+      <created>1706703580879</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1706703580879</updated>
+    </task>
+    <task id="LOCAL-00007" summary="add last time &#10;    and dayjs&#10;    and norm style for UserMiniCard.tsx&#10;    and">
+      <option name="closed" value="true" />
+      <created>1706707069184</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1706707069184</updated>
+    </task>
+    <task id="LOCAL-00008" summary="fix style notifications">
+      <option name="closed" value="true" />
+      <created>1706707656863</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1706707656863</updated>
+    </task>
+    <task id="LOCAL-00009" summary="mobile adaptivity lol">
+      <option name="closed" value="true" />
+      <created>1706716501547</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1706716501547</updated>
+    </task>
+    <task id="LOCAL-00010" summary="PWA is gone">
+      <option name="closed" value="true" />
+      <created>1706815444130</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1706815444130</updated>
+    </task>
+    <task id="LOCAL-00011" summary="remove useless Adaptivity and change it to scss cool thing">
+      <option name="closed" value="true" />
+      <created>1706818083044</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1706818083044</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/dnlkk-chat-backend" />
+      <path value="$PROJECT_DIR$/dnlkk-chat-frontend" />
+    </ignored-roots>
+    <MESSAGE value="lmao rofls" />
+    <MESSAGE value="fix sockets reconnect&#10;add users &#10;    and rooms &#10;    and messages and&#10;some magic" />
+    <MESSAGE value="some refactor&#10;(now i know how work with cache in rtk yea im cool)&#10;dialogs working cool!" />
+    <MESSAGE value="now messages watched after user join room" />
+    <MESSAGE value="set watched when user joinDialog" />
+    <MESSAGE value="add last time &#10;    and dayjs&#10;    and norm style for UserMiniCard.tsx&#10;    and" />
+    <MESSAGE value="fix style notifications" />
+    <MESSAGE value="mobile adaptivity lol" />
+    <MESSAGE value="PWA is gone" />
+    <MESSAGE value="remove useless Adaptivity and change it to scss cool thing" />
+    <option name="LAST_COMMIT_MESSAGE" value="remove useless Adaptivity and change it to scss cool thing" />
+  </component>
+</project>
