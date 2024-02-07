@@ -5,7 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="daee8c6a-45ff-437c-8383-981c260dd7a6" name="Changes" comment="idiot module">
-      <change beforePath="$PROJECT_DIR$/dnlkkworld-backend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/dnlkkworld-backend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkkworld-backend" beforeDir="false" afterPath="$PROJECT_DIR$/dnlkkworld-backend" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkkworld-frontend/.env.development" beforeDir="false" afterPath="$PROJECT_DIR$/dnlkkworld-frontend/.env.development" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkkworld-frontend/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/dnlkkworld-frontend/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkkworld-frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/dnlkkworld-frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkkworld-frontend/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/dnlkkworld-frontend/pnpm-lock.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkkworld-frontend/process.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/dnlkkworld-frontend/process.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkkworld-frontend/src/app/_providers/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/dnlkkworld-frontend/src/app/_providers/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnlkkworld-frontend/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/dnlkkworld-frontend/src/app/layout.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,9 +23,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="TypeScript JSX File" />
-        <option value="TypeScript File" />
         <option value="SCSS File" />
+        <option value="tsconfig.json" />
+        <option value="TypeScript File" />
+        <option value="TypeScript JSX File" />
       </list>
     </option>
   </component>
@@ -61,11 +70,14 @@
     "ignore.virus.scanning.warn.message": "true",
     "javascript.nodejs.core.library.configured.version": "21.6.1",
     "javascript.nodejs.core.library.typings.version": "20.11.9",
-    "last_opened_file_path": "C:/Users/user/DnlkkProjects/DnlkkWorld",
+    "js.linters.configure.manually.selectedeslint": "true",
+    "last_opened_file_path": "C:/Users/user/DnlkkProjects/DnlkkWorld/dnlkkworld-frontend/src",
     "list.type.of.created.stylesheet": "SCSS",
     "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.standard": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.standard": "",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_interpreter_path": "node",
     "nodejs_package_manager_path": "pnpm",
@@ -79,18 +91,18 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\user\DnlkkProjects\DnlkkWorld\dnlkkworld-frontend\src" />
       <recent name="C:\Users\user\DnlkkProjects\DnlkkWorld\dnlkk-chat-frontend" />
       <recent name="C:\Users\user\DnlkkProjects\DnlkkWorld\dnlkk-chat-frontend\src\entity\User\ui" />
       <recent name="C:\Users\user\DnlkkProjects\DnlkkWorld\dnlkk-chat-frontend\src\entity\Message\ui" />
       <recent name="C:\Users\user\DnlkkProjects\DnlkkWorld" />
-      <recent name="C:\Users\user\DnlkkProjects\DnlkkWorld\dnlkk-chat-backend" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\user\DnlkkProjects\DnlkkWorld\dnlkkworld-frontend\src\app\api\auth\_utils" />
+      <recent name="C:\Users\user\DnlkkProjects\DnlkkWorld\lib\common\src" />
+      <recent name="C:\Users\user\DnlkkProjects\DnlkkWorld\lib\common" />
       <recent name="C:\Users\user\DnlkkProjects\DnlkkWorld\dnlkk-chat-frontend\public" />
       <recent name="C:\Users\user\DnlkkProjects\DnlkkWorld\dnlkk-chat-frontend\src\widget\UserMiniCardDialog" />
-      <recent name="C:\Users\user\DnlkkProjects\DnlkkWorld\dnlkk-chat-frontend\src\entity\Message\model" />
-      <recent name="C:\Users\user\DnlkkProjects\DnlkkWorld\dnlkk-chat-frontend\src\widget\UserMiniCardDialog\ui" />
-      <recent name="C:\Users\user\DnlkkProjects\DnlkkWorld\dnlkk-chat-frontend\src\widget\UserMiniCardChat" />
     </key>
   </component>
   <component name="RunManager" selected="npm.backend-dev">

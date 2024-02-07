@@ -2,11 +2,10 @@ import {ReactNode} from "react";
 import type {Metadata, Viewport} from "next";
 import {Inter} from "next/font/google";
 
-import {SocketProvider} from "@/app/_providers/Sockets";
 import Header from "@/widget/Header/Header";
 
-import {StoreProvider, ThemeProvider} from "./_providers";
 import "./globals.css";
+import {GlobalProvider} from "@/app/_providers";
 
 const inter = Inter({subsets: ["latin"]});
 
@@ -27,16 +26,12 @@ export default function RootLayout({children}: LayoutProps) {
     return (
         <html lang="ru">
         <body className={inter.className}>
-        <StoreProvider>
-            <SocketProvider>
-                    <ThemeProvider>
-                        <Header/>
-                        <div className="wrapper">
-                            {children}
-                        </div>
-                    </ThemeProvider>
-            </SocketProvider>
-        </StoreProvider>
+            <GlobalProvider>
+                <Header/>
+                <div className="wrapper">
+                    {children}
+                </div>
+            </GlobalProvider>
         </body>
         </html>
     );
